@@ -10,15 +10,33 @@ class Gameboard {
             throw new Error('Ship is out of bounds');
         }
 
+        if (this.checkAreaOccupation(ship.length, x, y, axis)) {
+            throw new Error('Another ship has taken this area');
+        }
+
         if (axis === 'xAxis') {
             for (let i = 0; i < ship.length; i++) {
                 this.board[y][x + i] = ship;
             }
-        } else if (axis === 'yAxis') {
+        } else {
             for (let i = 0; i < ship.length; i++) {
                 this.board[y + i][x] = ship;
             }
         }
+    }
+
+    checkAreaOccupation(shipLength, x, y, axis) {
+        if (axis === 'xAxis') {
+            for (let i = 0; i < shipLength; i++) {
+                if (this.board[y][x + i] !== null) return true;
+            }
+        } else {
+            for (let i = 0; i < shipLength; i++) {
+                if (this.board[y + i][x] !== null) return true;
+            }
+        }
+
+        return false;
     }
 
     attackCoordinate(x, y) {
