@@ -21,8 +21,19 @@ class Gameboard {
         }
     }
 
-    attackCoordinate() {
+    attackCoordinate(x, y) {
+        if (x < 0 || x > 10 || y < 0 || y > 10 || this.board[y][x] === 'miss') return false;
 
+        if (this.board[y][x] === null) {
+            this.board[y][x] = 'miss';
+            return this.board[y][x];
+        } else if (this.board[y][x] !== 'hit') {
+            this.board[y][x].hit();
+            this.board[y][x] = 'hit';
+            return this.board[y][x];
+        } 
+        
+        return false;
     }
 
     isAllSunk() {
