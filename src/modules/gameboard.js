@@ -37,7 +37,10 @@ class Gameboard {
     }
 
     isAllSunk() {
-
+        return this.board
+          .flat()
+          .filter((area) => area !== null && area !== 'hit' && area !== 'miss')
+          .every((ship) => ship.sunk);
     }
 }
 
