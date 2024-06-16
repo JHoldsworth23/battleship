@@ -55,4 +55,15 @@ describe('Gameboard class', () => {
         expect(gameboard.attackCoordinate(1, 1)).toBe(false);
     });
 
+    test('isAllSunk method returns true if all battleships are sunk', () => {
+        fakeBattleship.sunk = true;
+        gameboard.board[5][5] = fakeBattleship;
+        expect(gameboard.isAllSunk()).toBe(true);
+    });
+
+    test('isAllSunk method returns false if not all battleships are sunk', () => {
+        gameboard.board[0][0] = fakeBattleship;
+        expect(gameboard.isAllSunk()).not.toBe(true);
+    });
+
 });
