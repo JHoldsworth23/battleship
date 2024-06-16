@@ -30,4 +30,9 @@ describe('Gameboard class', () => {
         expect(gameboard.board[2][0]).toEqual(fakeBattleship);
     });
 
+    test('a user tries to place a ship outside of board', () => {
+        expect(() => gameboard.placeShip(fakeBattleship, 9, 0, 'xAxis')).toThrow('Ship is out of bounds');
+        expect(() => gameboard.placeShip(fakeBattleship, 0, 9, 'yAxis')).toThrow('Ship is out of bounds');
+    });
+
 });
