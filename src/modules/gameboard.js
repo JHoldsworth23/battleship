@@ -6,11 +6,14 @@ class Gameboard {
     }
 
     placeShip(ship, x, y, axis) {
+        if ((axis === 'xAxis' && x + ship.length > 10) || (axis === 'yAxis' && y + ship.length > 10)) {
+            throw new Error('Ship is out of bounds');
+        }
+
         if (axis === 'xAxis') {
             for (let i = 0; i < ship.length; i++) {
                 this.board[y][x + i] = ship;
             }
-            // y index first and then x index;
         } else if (axis === 'yAxis') {
             for (let i = 0; i < ship.length; i++) {
                 this.board[y + i][x] = ship;
