@@ -35,4 +35,24 @@ describe('Gameboard class', () => {
         expect(() => gameboard.placeShip(fakeBattleship, 0, 9, 'yAxis')).toThrow('Ship is out of bounds');
     });
 
+    test('attackCoordinate method records a miss', () => {
+        expect(gameboard.attackCoordinate(0, 0)).toBe('miss');
+        expect(gameboard.board[0][0]).toBe('miss');
+    });
+
+    test('attackCoordinate method records a hit', () => {
+        gameboard.board[2][2] = fakeBattleship;
+        expect(gameboard.attackCoordinate(2, 2)).toBe('hit');
+        expect(fakeBattleship.hit).toHaveBeenCalled();
+    });
+
+    test('attackCoordinate x or/and y is out of bounds', () => {
+        expect(gameboard.attackCoordinate(-1, 0)).toBe(false);
+    });
+
+    test('attackCoordinate grid cell that has already called hit', () => {
+        gameboard.attackCoordinate(1, 1);
+        expect(gameboard.attackCoordinate(1, 1)).toBe(false);
+    });
+
 });
