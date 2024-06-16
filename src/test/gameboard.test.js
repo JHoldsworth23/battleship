@@ -66,4 +66,9 @@ describe('Gameboard class', () => {
         expect(gameboard.isAllSunk()).not.toBe(true);
     });
 
+    test('try to place a ship in occupied cells', () => {
+        gameboard.placeShip(fakeBattleship, 0, 0, 'xAxis');
+        expect(() => gameboard.placeShip(fakeDestroyer, 0, 0, 'xAxis')).toThrow('Another ship has taken this area')
+    });
+    
 });
