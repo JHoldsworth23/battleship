@@ -20,4 +20,19 @@ describe('Player class', () => {
         expect(player.ships).toBeDefined()
     });
 
+    test('player placeShip method calls gameboard placeShip method with correct arguments', () => {
+        const placeShipMock = jest.fn();
+        player.gameboard = { placeShip: placeShipMock };
+
+        expect(player.placeShip('carrier', 0, 0, 'xAxis')).toEqual(true);
+        expect(placeShipMock).toHaveBeenCalledTimes(1);
+        expect(placeShipMock).toHaveBeenCalledWith(player.ships.carrier.ship, 0, 0, 'xAxis');
+    });
+
+    test('player placeShip method called with invalid ship name', () => {
+        expect(() => {
+            player.placeShip('invalid', 0, 0, 'xAxis');
+        }).toThrow('Invalid ship name');
+    });
+
 });
