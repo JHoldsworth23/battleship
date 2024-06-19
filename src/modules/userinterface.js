@@ -30,6 +30,44 @@ class UserInterface {
     createEnemyGridEventHandler(callbackFn) {
         this.enemyGrid.addEventListener('click', callbackFn);
     }
+
+    updateGrids(playerGameboard, enemyGameboard) {
+        for (let x = 0; x < 10; x++) {
+            for (let y = 0; y < 10; y++) {
+                const playerCell = this.playerGridCells[x * 10 + y];
+                playerCell.classList.remove('ship', 'hit', 'miss');
+
+                if (playerGameboard.board[y][x] === 'hit') {
+                    playerCell.classList.add('hit');
+                } else if (playerGameboard.board[y][x] === 'miss') {
+                    playerCell.classList.add('miss');
+                } else if (playerGameboard.board[y][x] !== null) {
+                    const playerBattleship = playerGameboard.board[y][x];
+                    playerCell.classList.add('ship');
+                    playerCell.dataset.length = playerBattleship.length;
+                    playerCell.dataset.axis = playerBattleship.axis;
+                    playerCell.dataset.name = playerBattleship.name;
+                }
+
+                if (enemyGameboard) {
+                    const enemyCell = this.enemyGridCells[x * 10 + y];
+                    enemyCell.classList.remove('ship', 'hit', 'miss');
+
+                    if (enemyGameboard.board[y][x] === 'hit') {
+                        enemyCell.classList.add('hit');
+                    } else if (enemyGameboard.board[y][x] === 'miss') {
+                        enemyCell.classList.add('miss');
+                    } else if (enemyGameboard.board[y][x] !== null) {
+                        const enemyBattleship = enemyGameboard.board[y][x];
+                        enemyCell.classList.add('ship');
+                        enemyCell.dataset.length = enemyBattleship.length;
+                        enemyCell.dataset.axis = enemyBattleship.axis;
+                        enemyCell.dataset.name = enemyBattleship.name;
+                    }
+                }
+            }
+        }
+    }
 }
 
 export default UserInterface;
