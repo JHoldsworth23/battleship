@@ -1,8 +1,11 @@
 class UserInterface {
-    constructor(player) {
+    constructor(player, enemy) {
         this.player = player;
         this.playerGrid = document.getElementById('player-grid');
         this.playerGridCells = [];
+        this.enemy = enemy;
+        this.enemyGrid = document.getElementById('enemy-grid');
+        this.enemyGridCells = [];
     }
 
     createGrid(grid, cells) {
@@ -17,6 +20,7 @@ class UserInterface {
 
     renderGrids() {
         this.createGrid(this.playerGrid, this.playerGridCells);
+        this.createGrid(this.enemyGrid, this.enemyGridCells);
     }
 }
 
