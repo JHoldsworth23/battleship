@@ -2,9 +2,10 @@ import Player from './player';
 import UserInterface from './userinterface';
 
 class GameManager {
-    constructor(userName='Unknown') {
+    constructor(userName='Unknown', enemyName='Bot') {
         this.player = new Player(userName);
-        this.UI = new UserInterface(this.player);
+        this.enemy = new Player(enemyName, 'computer');
+        this.UI = new UserInterface(this.player, this.enemy);
     }
     
     initialiseGame() {
