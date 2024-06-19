@@ -6,8 +6,8 @@ class GameManager {
         this.player = new Player(userName);
         this.enemy = new Player(enemyName, 'computer');
         this.UI = new UserInterface(this.player, this.enemy);
-        this.currentPlayer = this.player;
-        this.isGameOver = false;
+        this.currentPlayer = null;
+        this.isGameOver = true;
     }
     
     initialiseGame() {
@@ -20,6 +20,12 @@ class GameManager {
         }
 
         this.UI.createEnemyGridEventHandler(this.enemyGridEventHandler.bind(this));
+
+        const startBtn = document.getElementById('start-btn');
+        startBtn.addEventListener('click', () => {
+            this.startGame();
+            // hide the button
+        });
 
     }
 
@@ -52,6 +58,13 @@ class GameManager {
                 this.currentPlayer = this.enemy;
             }
         }
+    }
+
+    startGame() {
+        this.isGameOver = false;
+        this.currentPlayer = this.player;
+        this.enemy.placeRandomShips();
+        this.UI.updateGrids(this.player.gameboard, this.enemy.gameboard);
     }
 
 }
