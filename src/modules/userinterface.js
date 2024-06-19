@@ -22,6 +22,14 @@ class UserInterface {
         this.createGrid(this.playerGrid, this.playerGridCells);
         this.createGrid(this.enemyGrid, this.enemyGridCells);
     }
+
+    createPlayerGridEventHandler(callbackFn) {
+        this.playerGrid.addEventListener('click', callbackFn);
+    }
+
+    createEnemyGridEventHandler(callbackFn) {
+        this.enemyGrid.addEventListener('click', callbackFn);
+    }
 }
 
 export default UserInterface;
