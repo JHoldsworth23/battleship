@@ -30,7 +30,7 @@ class GameManager {
             const y = index % 10;
 
             this.player.gameboard.attackCoordinate(x, y);
-            // update UI gameboard grid
+            this.UI.updateGrids(this.player.gameboard, this.enemy.gameboard);
 
             // check if the enemy wins
 
@@ -45,7 +45,7 @@ class GameManager {
             const y = index % 10;
 
             if (this.enemy.gameboard.attackCoordinate(x, y)) {
-                // update UI gameboard grid
+                this.UI.updateGrids(this.player.gameboard, this.enemy.gameboard);
                 
                 // check if the player wins 
 
