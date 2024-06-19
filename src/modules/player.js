@@ -41,6 +41,23 @@ class Player {
             return false;
         }
     }
+
+    placeRandomShips() {
+        for (let ship in this.ships) {
+            let placed = false;
+            while (!placed) {
+                let x = Math.floor(Math.random() * 10);
+                let y = Math.floor(Math.random() * 10);
+                let axis = Math.random() < 0.5 ? 'xAxis' : 'yAxis';
+
+                try {
+                    placed = this.placeShip(ship, x, y, axis);
+                } catch (e) {
+                    placed = false;
+                }
+            }
+        } 
+    }
 }
 
 module.exports = Player;
