@@ -1,4 +1,4 @@
-import Player from './player';
+import Player from '../modules/player';
 import UserInterface from './userinterface';
 
 class GameManager {

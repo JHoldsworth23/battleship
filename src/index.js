@@ -1,4 +1,4 @@
-import GameManager from "./modules/gamemanager";
+import GameManager from "./dom/gamemanager";
 import './style.css';
 
 const gameManager = new GameManager();
