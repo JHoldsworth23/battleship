@@ -68,6 +68,11 @@ class UserInterface {
             }
         }
     }
+
+    initialiseButtons(...callbackFn) {
+        const btns = document.querySelectorAll('button');
+        btns.forEach((button, index) => button.addEventListener('click', callbackFn[index]));
+    }
 }
 
 export default UserInterface;

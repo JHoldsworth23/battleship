@@ -21,7 +21,7 @@ class GameManager {
 
         this.UI.createEnemyGridEventHandler(this.enemyGridEventHandler.bind(this));
 
-        // initialise buttons
+        this.UI.initialiseButtons(this.randomisePlayerShips.bind(this), this.startGame.bind(this), this.resetGame.bind(this));
 
     }
 
@@ -71,6 +71,15 @@ class GameManager {
         this.UI.updateGrids(this.player.gameboard, this.enemy.gameboard);
 
         // disable start and randomise buttons
+    }
+
+    randomisePlayerShips() {
+        this.player.placeRandomShips();
+        this.UI.updateGrids(this.player.gameboard, this.enemy.gameboard);
+    }
+
+    resetGame() {
+        // reset the game
     }
 
 }
