@@ -16,11 +16,11 @@ class Gameboard {
 
         if (axis === 'xAxis') {
             for (let i = 0; i < ship.length; i++) {
-                this.board[y][x + i] = ship;
+                this.board[y + i][x] = ship;
             }
         } else {
             for (let i = 0; i < ship.length; i++) {
-                this.board[y + i][x] = ship;
+                this.board[y][x + i] = ship;
             }
         }
     }
@@ -28,11 +28,11 @@ class Gameboard {
     checkAreaOccupation(shipLength, x, y, axis) {
         if (axis === 'xAxis') {
             for (let i = 0; i < shipLength; i++) {
-                if (this.board[y][x + i] !== null) return true;
+                if (this.board[y + i][x] !== null) return true;
             }
         } else {
             for (let i = 0; i < shipLength; i++) {
-                if (this.board[y + i][x] !== null) return true;
+                if (this.board[y][x + i] !== null) return true;
             }
         }
 

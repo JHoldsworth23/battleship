@@ -15,6 +15,10 @@ class Battleship {
     isSunk() {
         return this.sunk;
     }
+
+    setAxis(axis) {
+        this.axis = axis;
+    }
 }
 
 module.exports = Battleship;

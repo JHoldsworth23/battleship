@@ -34,6 +34,7 @@ class Player {
         if (!this.ships[shipName]) throw new Error('Invalid ship name');
 
         try {
+            this.ships[shipName].ship.setAxis(axis);
             this.gameboard.placeShip(this.ships[shipName].ship, x, y, axis);
             this.ships[shipName].placed = true;
             return true;
