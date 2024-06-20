@@ -13,3 +13,15 @@
     justify-content: center;
     align-items: center;
 }
+
+.grid-cell:hover {
+    background-color: #a8a8a8;
+}
+
+.hit {
+    background-color: crimson;
+}
+
+.miss {
+    background-color: aqua;
+}
