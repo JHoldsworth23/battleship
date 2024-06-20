@@ -58,6 +58,13 @@ class Player {
             }
         } 
     }
+
+    isAllShipsPlaced() {
+        for (let ship in this.ships) {
+            if (!this.ships[ship].placed) return false;
+        }
+        return true;
+    }
 }
 
 module.exports = Player;

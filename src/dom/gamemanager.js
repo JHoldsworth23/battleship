@@ -7,7 +7,7 @@ class GameManager {
         this.enemy = new Player(enemyName, 'computer');
         this.UI = new UserInterface(this.player, this.enemy);
         this.currentPlayer = null;
-        this.isGameOver = true;
+        this.isGameOn = false;
     }
     
     initialiseGame() {
@@ -21,16 +21,12 @@ class GameManager {
 
         this.UI.createEnemyGridEventHandler(this.enemyGridEventHandler.bind(this));
 
-        const startBtn = document.getElementById('start-btn');
-        startBtn.addEventListener('click', () => {
-            this.startGame();
-            // hide the button
-        });
+        // initialise buttons
 
     }
 
     playerGridEventHandler(e) {
-        if (!this.isGameOver && this.currentPlayer === this.enemy) {
+        if (this.isGameOn && this.currentPlayer === this.enemy) {
             const index = this.UI.playerGridCells.indexOf(e.target);
             const x = Math.floor(index / 10);
             const y = index % 10;
@@ -45,7 +41,7 @@ class GameManager {
     }
 
     enemyGridEventHandler(e) {
-        if (!this.isGameOver && this.currentPlayer === this.player) {
+        if (!this.isGameOn && this.currentPlayer === this.player) {
             const index = this.UI.enemyGridCells.indexOf(e.target);
             const x = Math.floor(index / 10);
             const y = index % 10;
@@ -61,10 +57,20 @@ class GameManager {
     }
 
     startGame() {
-        this.isGameOver = false;
+        if (this.isGameOn) {
+            // message - game is already started
+            return;
+        } else if (!this.player.isAllShipsPlaced()) {
+            // message - not all ships are placed 
+            return;
+        }
+
+        this.isGameOn = true;
         this.currentPlayer = this.player;
         this.enemy.placeRandomShips();
         this.UI.updateGrids(this.player.gameboard, this.enemy.gameboard);
+
+        // disable start and randomise buttons
     }
 
 }
