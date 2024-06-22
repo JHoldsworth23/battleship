@@ -66,6 +66,13 @@ class Player {
         }
         return true;
     }
+
+    resetAllShips() {
+        for (let ship in this.ships) {
+            this.ships[ship].placed = false;
+            this.ships[ship].ship = new Battleship(this.ships[ship].ship.length, this.ships[ship].ship.name);
+        }
+    }
 }
 
 module.exports = Player;

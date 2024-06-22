@@ -78,6 +78,7 @@ class GameManager {
 
     randomisePlayerShips() {
         this.player.gameboard.resetBoard();
+        this.player.resetAllShips();
         this.player.placeRandomShips();
         this.UI.updateGrids(this.player.gameboard, this.enemy.gameboard);
     }
