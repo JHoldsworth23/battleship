@@ -38,7 +38,7 @@ class GameManager {
             this.player.gameboard.attackCoordinate(x, y);
             this.UI.updateGrids(this.player.gameboard, this.enemy.gameboard);
 
-            // check if the enemy wins
+            if (this.checkWinner()) return;
 
             this.currentPlayer = this.player;
         }
@@ -53,11 +53,23 @@ class GameManager {
             if (this.enemy.gameboard.attackCoordinate(x, y)) {
                 this.UI.updateGrids(this.player.gameboard, this.enemy.gameboard);
                 
-                // check if the player wins 
+                if (this.checkWinner()) return;
 
                 this.currentPlayer = this.enemy;
             }
         }
+    }
+
+    checkWinner() {
+        if (this.player.gameboard.isAllSunk()) {
+            // player lost
+            return true;
+        } else if (this.enemy.gameboard.isAllSunk()) {
+            // player wins
+            return true;
+        }
+
+        return false;
     }
 
     startGame() {
