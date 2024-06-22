@@ -70,8 +70,14 @@ class UserInterface {
     }
 
     initialiseButtons(...callbackFn) {
-        const btns = document.querySelectorAll('button');
-        btns.forEach((button, index) => button.addEventListener('click', callbackFn[index]));
+        const randomiseBtn = document.getElementById('random-btn');
+        randomiseBtn.addEventListener('click', callbackFn[0]);
+
+        const startBtn = document.getElementById('start-btn');
+        startBtn.addEventListener('click', callbackFn[1]);
+
+        const resetBtn = document.getElementById('reset-btn');
+        resetBtn.addEventListener('click', callbackFn[2]);
     }
 }
 
