@@ -21,7 +21,10 @@ class GameManager {
 
         this.UI.createEnemyGridEventHandler(this.enemyGridEventHandler.bind(this));
 
+        // create the player ship position
         this.UI.initialiseButtons(this.randomisePlayerShips.bind(this), this.startGame.bind(this), this.resetGame.bind(this));
+
+        // player to drag the ship around the grid
 
     }
 
@@ -74,6 +77,7 @@ class GameManager {
     }
 
     randomisePlayerShips() {
+        this.player.gameboard.resetBoard();
         this.player.placeRandomShips();
         this.UI.updateGrids(this.player.gameboard, this.enemy.gameboard);
     }

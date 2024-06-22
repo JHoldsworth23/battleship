@@ -60,6 +60,10 @@ class Gameboard {
           .filter((area) => area !== null && area !== 'hit' && area !== 'miss')
           .every((ship) => ship.sunk);
     }
+
+    resetBoard() {
+        this.board = Array(10).fill(null).map(() => Array(10).fill(null));
+    }
 }
 
 module.exports = Gameboard;
