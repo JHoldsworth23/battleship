@@ -31,7 +31,7 @@ class UserInterface {
         this.enemyGrid.addEventListener('click', callbackFn);
     }
 
-    updateGrids(playerGameboard, enemyGameboard) {
+    updateGrids(playerGameboard, enemyGameboard=null) {
         for (let x = 0; x < 10; x++) {
             for (let y = 0; y < 10; y++) {
                 const playerCell = this.playerGridCells[x * 10 + y];
@@ -49,7 +49,7 @@ class UserInterface {
                     playerCell.dataset.name = playerBattleship.name;
                 }
 
-                if (enemyGameboard) {
+                if (enemyGameboard !== null) {
                     const enemyCell = this.enemyGridCells[x * 10 + y];
                     enemyCell.classList.remove('ship', 'hit', 'miss');
 

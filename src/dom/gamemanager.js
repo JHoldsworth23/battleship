@@ -21,8 +21,9 @@ class GameManager {
 
         this.UI.createEnemyGridEventHandler(this.enemyGridEventHandler.bind(this));
 
-        // create the player ship position
+        this.player.placeRandomShips();
         this.UI.initialiseButtons(this.randomisePlayerShips.bind(this), this.startGame.bind(this), this.resetGame.bind(this));
+        this.UI.updateGrids(this.player.gameboard, this.enemy.gameboard);
 
         // player to drag the ship around the grid
 
@@ -44,7 +45,7 @@ class GameManager {
     }
 
     enemyGridEventHandler(e) {
-        if (!this.isGameOn && this.currentPlayer === this.player) {
+        if (this.isGameOn && this.currentPlayer === this.player) {
             const index = this.UI.enemyGridCells.indexOf(e.target);
             const x = Math.floor(index / 10);
             const y = index % 10;
