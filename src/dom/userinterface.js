@@ -31,7 +31,7 @@ class UserInterface {
         this.enemyGrid.addEventListener('click', callbackFn);
     }
 
-    updateGrids(playerGameboard, enemyGameboard=null) {
+    updateGrids(playerGameboard, enemyGameboard=null, hideEnemyShips=true) {
         for (let x = 0; x < 10; x++) {
             for (let y = 0; y < 10; y++) {
                 const playerCell = this.playerGridCells[x * 10 + y];
@@ -59,10 +59,11 @@ class UserInterface {
                         enemyCell.classList.add('miss');
                     } else if (enemyGameboard.board[y][x] !== null) {
                         const enemyBattleship = enemyGameboard.board[y][x];
-                        enemyCell.classList.add('ship');
                         enemyCell.dataset.length = enemyBattleship.length;
                         enemyCell.dataset.axis = enemyBattleship.axis;
                         enemyCell.dataset.name = enemyBattleship.name;
+
+                        if (!hideEnemyShips) enemyCell.classList.add('ship');
                     }
                 }
             }
