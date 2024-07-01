@@ -25,7 +25,7 @@ class GameManager {
         this.UI.initialiseButtons(this.randomisePlayerShips.bind(this), this.startGame.bind(this), this.resetGame.bind(this));
         this.UI.updateGrids(this.player.gameboard, this.enemy.gameboard);
 
-        // player to drag the ship around the grid
+        this.UI.draggingShips();
 
     }
 
