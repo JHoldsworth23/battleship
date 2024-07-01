@@ -1,9 +1,9 @@
 class Battleship {
-    constructor(length, name='unnamed', axis='xAxis') {
+    constructor(length, name='unnamed', hit=0, sunk=false, axis='xAxis') {
         this.length = length;
         this.name = name;
-        this.hitCount = 0;
-        this.sunk = false;
+        this.hitCount = hit;
+        this.sunk = sunk;
         this.axis = axis;
     }
 
