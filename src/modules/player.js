@@ -73,6 +73,14 @@ class Player {
             this.ships[ship].ship = new Battleship(this.ships[ship].ship.length, this.ships[ship].ship.name);
         }
     }
+
+    removeShip(shipName) {
+        if (!this.ships[shipName]) {
+            throw new Error('Invalid ship name');
+        }
+        const ship = this.ships[shipName].ship;
+        this.gameboard.removeShip(ship);
+    }
 }
 
 module.exports = Player;
