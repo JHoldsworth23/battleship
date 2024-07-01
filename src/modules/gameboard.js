@@ -1,3 +1,5 @@
+const Battleship = require("./battleship");
+
 class Gameboard {
     constructor(board=null) {
         this.board = board === null 
@@ -63,6 +65,56 @@ class Gameboard {
 
     resetBoard() {
         this.board = Array(10).fill(null).map(() => Array(10).fill(null));
+    }
+
+    deepCopy(board) {
+        const newBoard = Array(10).fill(null).map(() => Array(10).fill(null));
+        for (let i = 0; i < 10; i++) {
+            for (let j = 0; j < 10; j++) {
+                const cell = board[i][j];
+                if (cell instanceof Battleship) {
+                    newBoard[i][j] = new Battleship(cell.length, cell.name, cell.hitCount, cell.sunk, cell.axis);
+                } else {
+                    newBoard[i][j] = cell;
+                }
+            }
+        }
+
+        return newBoard;
+    }
+
+    getLocationByShipName(shipName) {
+        for (let i = 0; i < 10; i++) {
+            for (let j = 0; j < 10; j++) {
+                if (this.board[i][j] !== null && this.board[i][j].name == shipName) {
+                    return this.board[i][j];
+                }
+            }
+        }
+
+        return null;
+    }
+
+    removeShip(ship) {
+        if (ship === null) return;
+
+        for (let i = 0; i < 10; i++) {
+            for (let j = 0; j < 10; j++) {
+                if (this.board[i][j] !== null && this.board[i][j].name == ship.name) {
+                    this.board[i][j] = null;
+                }
+            }
+        }
+    }
+
+    canShipBePlaced(ship, x, y, axis) {
+        if (ship === null) return false;
+
+        if ((axis === 'xAxis' && y + ship.length > 10) && (axis === 'yAxis' && x + ship.length > 10)) return false;
+        
+        if (this.checkAreaOccupation(x, y, ship.length, axis)) return false;
+
+        return true;
     }
 }
 
