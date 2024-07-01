@@ -1,3 +1,5 @@
+import Gameboard from "../modules/gameboard";
+
 class UserInterface {
     constructor(player, enemy) {
         this.player = player;
@@ -6,6 +8,7 @@ class UserInterface {
         this.enemy = enemy;
         this.enemyGrid = document.getElementById('enemy-grid');
         this.enemyGridCells = [];
+        this.temporaryBoard = null;
     }
 
     createGrid(grid, cells) {
@@ -80,6 +83,88 @@ class UserInterface {
         const resetBtn = document.getElementById('reset-btn');
         resetBtn.addEventListener('click', callbackFn[2]);
     }
+
+    draggingShips() {
+        const ships = this.playerGrid.querySelectorAll('.ship');
+        ships.forEach((ship) => this.makeDraggable(ship));
+
+        this.playerGridCells.forEach((cell) => {
+            cell.removeEventListener('dragstart', this.eventDisabler);
+            cell.removeEventListener('dragend', this.eventDisabler);
+            cell.removeEventListener('dragover', this.eventDisabler);
+            cell.removeEventListener('drop', this.eventDisabler);
+            cell.removeEventListener('dragover', this.handleDragOver.bind(this));
+            cell.removeEventListener('drop', this.handleDrop.bind(this));
+
+            cell.addEventListener('dragover', this.handleDragOver.bind(this));
+            cell.addEventListener('drop', this.handleDrop.bind(this));
+        });
+    }
+
+    enableShipDragging(shipName) {
+        const ships = this.playerGrid.querySelectorAll(`.ship[data-name="${shipName}"]`);
+        ships.forEach((ship) => this.makeDraggable(ship));
+    }
+
+    eventDisabler(e) {
+        e.preventDefault();
+    }
+
+    makeDraggable(ship) {
+        ship.setAttribute('draggable', true);
+
+        ship.removeEventListener('dragstart', this.eventDisabler);
+        ship.removeEventListener('dragend', this.eventDisabler);
+        ship.removeEventListener('dragstart', this.handleDragStart.bind(this));
+        ship.removeEventListener('dragend', this.handleDragEnd.bind(this));
+
+        ship.addEventListener('dragstart', this.handleDragStart.bind(this));
+        ship.addEventListener('dragend', this.handleDragEnd.bind(this));
+    }
+
+    handleDragStart(e) {
+        e.dataTransfer.setData('text/plain', e.target.dataset.index);
+        this.temporaryBoard = new Gameboard(this.player.gameboard.deepCopy(this.player.gameboard.board));
+        setTimeout(() => {e.target.classList.add('hide')}, 0);
+    }
+
+    handleDragEnd(e) {
+        e.target.classList.remove('hide');
+    }
+
+    handleDragOver(e) {
+        e.preventDefault();
+    }
+
+    handleDrop(e) {
+        e.preventDefault();
+        const shipId = e.dataTransfer.getData('text/plain');
+        const ship = this.playerGrid.querySelector(`.ship[data-index="${shipId}"]`);
+        
+        const index = e.target.dataset.index;
+        const x = Math.floor(index / 10);
+        const y = index % 10;
+
+        if (!ship || x * 10 + y == shipId) return;
+
+        const shipAxis = ship.dataset.axis;
+        const shipToBePlaced = this.temporaryBoard.getLocationByShipName(ship.dataset.name);
+
+        this.temporaryBoard.removeShip(shipToBePlaced);
+
+        if (this.temporaryBoard.canShipBePlaced(shipToBePlaced, x, y, shipAxis)) {
+            try {
+                this.player.removeShip(ship.dataset.name);
+
+                if (this.player.placeShip(ship.dataset.name, x, y, shipAxis)) {
+                    this.updateGrids(this.player.gameboard);
+                    this.enableShipDragging(ship.dataset.name);
+                }
+            } catch (err) {
+                console.log(err.message);
+            }
+        }
+    } 
 }
 
 export default UserInterface;
