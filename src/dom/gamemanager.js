@@ -1,3 +1,4 @@
+import Battleship from '../modules/battleship';
 import Player from '../modules/player';
 import UserInterface from './userinterface';
 
@@ -84,8 +85,9 @@ class GameManager {
         this.isGameOn = true;
         this.currentPlayer = this.player;
         this.enemy.placeRandomShips();
+        this.UI.disableShipDragging();
         this.UI.updateGrids(this.player.gameboard, this.enemy.gameboard);
-
+        
         // disable start and randomise buttons
     }
 

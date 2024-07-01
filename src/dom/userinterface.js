@@ -84,6 +84,21 @@ class UserInterface {
         resetBtn.addEventListener('click', callbackFn[2]);
     }
 
+    disableShipDragging() {
+        this.playerGridCells.forEach((cell) => {
+            cell.setAttribute("draggable", false);
+            cell.removeEventListener("dragstart", this.handleDragStart.bind(this));
+            cell.removeEventListener("dragend", this.handleDragEnd.bind(this));
+            cell.removeEventListener("dragover", this.handleDragOver.bind(this));
+            cell.removeEventListener("drop", this.handleDrop.bind(this));
+
+            cell.addEventListener("dragstart", this.eventDisabler);
+            cell.addEventListener("dragend", this.eventDisabler);
+            cell.addEventListener("dragover", this.eventDisabler);
+            cell.addEventListener("drop", this.eventDisabler);
+        });
+    }
+
     draggingShips() {
         const ships = this.playerGrid.querySelectorAll('.ship');
         ships.forEach((ship) => this.makeDraggable(ship));
