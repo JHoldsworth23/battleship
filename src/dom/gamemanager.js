@@ -96,6 +96,7 @@ class GameManager {
         this.player.resetAllShips();
         this.player.placeRandomShips();
         this.UI.updateGrids(this.player.gameboard, this.enemy.gameboard);
+        this.UI.draggingShips();
     }
 
     resetGame() {
