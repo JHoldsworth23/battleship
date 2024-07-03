@@ -8,7 +8,9 @@ class Gameboard {
     }
 
     placeShip(ship, x, y, axis) {
-        if ((axis === 'xAxis' && x + ship.length > 10) || (axis === 'yAxis' && y + ship.length > 10)) {
+        if (axis === 'xAxis' && y + ship.length > 10) {
+            throw new Error('Ship is out of bounds');
+        } else if (axis === 'yAxis' && x + ship.length > 10) {
             throw new Error('Ship is out of bounds');
         }
 
@@ -18,11 +20,11 @@ class Gameboard {
 
         if (axis === 'xAxis') {
             for (let i = 0; i < ship.length; i++) {
-                this.board[y + i][x] = ship;
+                this.board[x][y + i] = ship;
             }
-        } else {
+        } else if (axis === 'yAxis') {
             for (let i = 0; i < ship.length; i++) {
-                this.board[y][x + i] = ship;
+                this.board[x + i][y] = ship;
             }
         }
     }
@@ -30,11 +32,11 @@ class Gameboard {
     checkAreaOccupation(shipLength, x, y, axis) {
         if (axis === 'xAxis') {
             for (let i = 0; i < shipLength; i++) {
-                if (this.board[y + i][x] !== null) return true;
+                if (this.board[x][y + i] !== null) return true;
             }
-        } else {
+        } else if (axis === 'yAxis') {
             for (let i = 0; i < shipLength; i++) {
-                if (this.board[y][x + i] !== null) return true;
+                if (this.board[x + i][y] !== null) return true;
             }
         }
 
@@ -42,15 +44,15 @@ class Gameboard {
     }
 
     attackCoordinate(x, y) {
-        if (x < 0 || x > 10 || y < 0 || y > 10 || this.board[y][x] === 'miss') return false;
+        if (x < 0 || x > 10 || y < 0 || y > 10 || this.board[x][y] === 'miss') return false;
 
-        if (this.board[y][x] === null) {
-            this.board[y][x] = 'miss';
-            return this.board[y][x];
-        } else if (this.board[y][x] !== 'hit') {
-            this.board[y][x].hit();
-            this.board[y][x] = 'hit';
-            return this.board[y][x];
+        if (this.board[x][y] === null) {
+            this.board[x][y] = 'miss';
+            return this.board[x][y];
+        } else if (this.board[x][y] !== 'hit') {
+            this.board[x][y].hit();
+            this.board[x][y] = 'hit';
+            return this.board[x][y];
         } 
         
         return false;
@@ -110,9 +112,13 @@ class Gameboard {
     canShipBePlaced(ship, x, y, axis) {
         if (ship === null) return false;
 
-        if ((axis === 'xAxis' && y + ship.length > 10) && (axis === 'yAxis' && x + ship.length > 10)) return false;
+        if (axis === 'xAxis' && y + ship.length > 10) {
+            return false;
+        } else if (axis === 'yAxis' && x + ship.length > 10) {
+            return false;
+        }
         
-        if (this.checkAreaOccupation(x, y, ship.length, axis)) return false;
+        if (this.checkAreaOccupation(ship.length, x, y, axis)) return false;
 
         return true;
     }
