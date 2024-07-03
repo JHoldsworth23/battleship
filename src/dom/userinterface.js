@@ -16,6 +16,7 @@ class UserInterface {
             const area = document.createElement('div');
             area.classList.add('grid-cell');
             area.dataset.index = i;
+            area.setAttribute('draggable', false);
             grid.appendChild(area);
             cells.push(area);
         }
@@ -39,29 +40,29 @@ class UserInterface {
             for (let y = 0; y < 10; y++) {
                 const playerCell = this.playerGridCells[x * 10 + y];
                 playerCell.classList.remove('ship', 'hit', 'miss');
-
-                if (playerGameboard.board[y][x] === 'hit') {
+    
+                if (playerGameboard.board[x][y] === 'hit') {
                     playerCell.classList.add('hit');
-                } else if (playerGameboard.board[y][x] === 'miss') {
+                } else if (playerGameboard.board[x][y] === 'miss') {
                     playerCell.classList.add('miss');
-                } else if (playerGameboard.board[y][x] !== null) {
-                    const playerBattleship = playerGameboard.board[y][x];
+                } else if (playerGameboard.board[x][y] !== null) {
+                    const playerBattleship = playerGameboard.board[x][y];
                     playerCell.classList.add('ship');
                     playerCell.dataset.length = playerBattleship.length;
                     playerCell.dataset.axis = playerBattleship.axis;
                     playerCell.dataset.name = playerBattleship.name;
-                }
-
+                } 
+                
                 if (enemyGameboard !== null) {
                     const enemyCell = this.enemyGridCells[x * 10 + y];
                     enemyCell.classList.remove('ship', 'hit', 'miss');
 
-                    if (enemyGameboard.board[y][x] === 'hit') {
+                    if (enemyGameboard.board[x][y] === 'hit') {
                         enemyCell.classList.add('hit');
-                    } else if (enemyGameboard.board[y][x] === 'miss') {
+                    } else if (enemyGameboard.board[x][y] === 'miss') {
                         enemyCell.classList.add('miss');
-                    } else if (enemyGameboard.board[y][x] !== null) {
-                        const enemyBattleship = enemyGameboard.board[y][x];
+                    } else if (enemyGameboard.board[x][y] !== null) {
+                        const enemyBattleship = enemyGameboard.board[x][y];
                         enemyCell.dataset.length = enemyBattleship.length;
                         enemyCell.dataset.axis = enemyBattleship.axis;
                         enemyCell.dataset.name = enemyBattleship.name;
@@ -138,7 +139,7 @@ class UserInterface {
     }
 
     handleDragStart(e) {
-        e.dataTransfer.setData('text/plain', e.target.dataset.index);
+        e.dataTransfer.setData('text', e.target.dataset.index);
         this.temporaryBoard = new Gameboard(this.player.gameboard.deepCopy(this.player.gameboard.board));
         setTimeout(() => {e.target.classList.add('hide')}, 0);
     }
@@ -153,7 +154,7 @@ class UserInterface {
 
     handleDrop(e) {
         e.preventDefault();
-        const shipId = e.dataTransfer.getData('text/plain');
+        const shipId = e.dataTransfer.getData('text');
         const ship = this.playerGrid.querySelector(`.ship[data-index="${shipId}"]`);
         
         const index = e.target.dataset.index;
