@@ -97,7 +97,18 @@ class GameManager {
     }
 
     resetGame() {
-        // reset the game
+        if (this.isGameOn) this.UI.disableButtons(false);
+
+        this.isGameOn = false;
+        this.currentPlayer = null;
+        this.player.gameboard.resetBoard();
+        this.enemy.gameboard.resetBoard();
+        this.player.resetAllShips();
+        this.enemy.resetAllShips();
+        this.UI.resetAreas();
+        this.player.placeRandomShips();
+        this.UI.updateGrids(this.player.gameboard, this.enemy.gameboard);
+        this.UI.draggingShips();
     }
 
 }
