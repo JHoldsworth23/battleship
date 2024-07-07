@@ -191,6 +191,14 @@ class UserInterface {
         startBtn.disabled = visible;
         startBtn.style.opacity = visible ? 0.75 : 1;
     }
+
+    resetAreas() {
+        const playerGrid = document.querySelectorAll('#player-grid > div');
+        playerGrid.forEach((area) => area.classList.remove('hit', 'miss', 'ship'));
+
+        const enemyGrid = document.querySelectorAll('#enemy-grid > div');
+        enemyGrid.forEach((area) => area.classList.remove('hit', 'miss', 'ship'));
+    }
 }
 
 export default UserInterface;
