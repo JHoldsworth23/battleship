@@ -181,6 +181,16 @@ class UserInterface {
             }
         }
     } 
+
+    disableButtons(visible) {
+        const randomBtn = document.getElementById('random-btn');
+        randomBtn.disabled = visible;
+        randomBtn.style.opacity = visible ? 0.75 : 1;
+
+        const startBtn = document.getElementById('start-btn');
+        startBtn.disabled = visible;
+        startBtn.style.opacity = visible ? 0.75 : 1;
+    }
 }
 
 export default UserInterface;
