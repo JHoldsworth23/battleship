@@ -1,7 +1,7 @@
 class AI {
-    constructor(enemy, ui, player) {
+    constructor(enemy, UI, player) {
         this.enemy = enemy;
-        this.ui = ui;
+        this.UI = UI;
         this.player = player;
         this.nextAttacks = [];
         this.duringMove = false;
@@ -32,25 +32,24 @@ class AI {
                 return;
             }
         } else {
-            this.randomAttack();
+            do {
+                x = Math.floor(Math.random() * 10);
+                y = Math.floor(Math.random() * 10);
+            } while (this.player.gameboard.board[x][y] === 'hit' || this.player.gameboard.board[x][y] === 'miss');
         }
 
         const hitSuccessful = this.player.gameboard.attackCoordinate(x, y);
         if (hitSuccessful === 'hit') {
             this.nextAttacks.push([x, y]);
         }
-    }
 
-    randomAttack() {
-        let x;
-        let y;
-        do {
-            x = Math.floor(Math.random() * 10);
-            y = Math.floor(Math.random() * 10);
-        } while (this.player.gameboard.board[x][y] === 'hit' || this.player.gameboard.board[x][y] === 'miss');
+        this.UI.updateGrids(this.player.gameboard, this.enemy.gameboard);
+        this.duringMove = false;
     }
 
     validAttack(x, y) {
         return x >= 0 && x < 10 && y >= 0 && y < 10 && this.player.gameboard.board[x][y] !== 'hit' && this.player.gameboard.board[x][y] !== 'miss';
     }
 }
+
+export default AI;
