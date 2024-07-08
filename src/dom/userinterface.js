@@ -199,6 +199,13 @@ class UserInterface {
         const enemyGrid = document.querySelectorAll('#enemy-grid > div');
         enemyGrid.forEach((area) => area.classList.remove('hit', 'miss', 'ship'));
     }
+
+    displayMessage(text, error=false) {
+        const message = document.querySelector('.message');
+        message.textContent = text;
+
+        error ? message.classList.add('error') : message.classList.remove('error');
+    }
 }
 
 export default UserInterface;
