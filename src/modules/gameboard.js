@@ -44,7 +44,9 @@ class Gameboard {
     }
 
     attackCoordinate(x, y) {
-        if (x < 0 || x > 10 || y < 0 || y > 10 || this.board[x][y] === 'miss') return false;
+        if (x < 0 || x > 10 || y < 0 || y > 10 || this.board[x][y] === 'miss') {
+            return false;
+        }
 
         if (this.board[x][y] === null) {
             this.board[x][y] = 'miss';
