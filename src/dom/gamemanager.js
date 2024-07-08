@@ -1,12 +1,13 @@
-import Battleship from '../modules/battleship';
 import Player from '../modules/player';
 import UserInterface from './userinterface';
+import AI from '../modules/ai';
 
 class GameManager {
     constructor(userName='Unknown', enemyName='Bot') {
         this.player = new Player(userName);
         this.enemy = new Player(enemyName, 'computer');
         this.UI = new UserInterface(this.player, this.enemy);
+        this.AI = new AI(this.enemy, this.UI, this.player);
         this.currentPlayer = null;
         this.isGameOn = false;
     }
@@ -34,17 +35,17 @@ class GameManager {
             const x = Math.floor(index / 10);
             const y = index % 10;
 
+            if (this.checkWinner()) return;
+
             this.player.gameboard.attackCoordinate(x, y);
             this.UI.updateGrids(this.player.gameboard, this.enemy.gameboard);
-
-            if (this.checkWinner()) return;
 
             this.currentPlayer = this.player;
         }
     }
 
     enemyGridEventHandler(e) {
-        if (this.isGameOn && this.currentPlayer === this.player) {
+        if (this.isGameOn && this.currentPlayer === this.player && !this.AI.duringMove) {
             const index = this.UI.enemyGridCells.indexOf(e.target);
             const x = Math.floor(index / 10);
             const y = index % 10;
@@ -55,15 +56,21 @@ class GameManager {
                 if (this.checkWinner()) return;
 
                 this.currentPlayer = this.enemy;
+
+                this.AI.duringMove = true;
+                setTimeout(this.AI.makeMove.bind(this.AI), 200 + Math.floor(Math.random() * 600));
+                this.currentPlayer = this.player;
             }
         }
     }
 
     checkWinner() {
         if (this.player.gameboard.isAllSunk()) {
+            this.isGameOn = false;
             // player lost
             return true;
         } else if (this.enemy.gameboard.isAllSunk()) {
+            this.isGameOn = false;
             // player wins
             return true;
         }
@@ -97,8 +104,7 @@ class GameManager {
     }
 
     resetGame() {
-        if (this.isGameOn) this.UI.disableButtons(false);
-
+        this.UI.disableButtons(false);
         this.isGameOn = false;
         this.currentPlayer = null;
         this.player.gameboard.resetBoard();
