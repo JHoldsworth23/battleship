@@ -202,7 +202,7 @@ class UserInterface {
 
     displayMessage(text, error=false) {
         const message = document.querySelector('.message');
-        message.textContent = text;
+        message.innerHTML = text;
 
         error ? message.classList.add('error') : message.classList.remove('error');
     }
