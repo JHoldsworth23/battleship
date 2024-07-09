@@ -1,25 +1,69 @@
+@font-face {
+    font-family: 'AntonSC';
+    src: url('../src/fonts/AntonSC-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Bebas Neue';
+    src: url('../src/fonts/BebasNeue-Regular.ttf') format('truetype');
+}
+
+:root {
+    --primary-color: #1434A4;
+    --secondary-color: #0F52BA;
+    --font-color: #FEFEFE;
+}
+
 body {
     max-height: 100vh;
-    background-color: #0F52BA;
-    color: #FEFEFE;
-    margin: 0;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
+    text-align: center;
+    background-color: var(--secondary-color);
+    color: var(--font-color);
+    margin: 5vh auto;
+}
+
+.header {
+    font-family: 'AntonSC';
+    letter-spacing: 2.8px;
+    text-transform: uppercase;
+    font-size: 1.8rem;
+    cursor: default;
+}
+
+.header > img {
+    position: relative;
+    left: 4px;
+    width: 58%;
+    filter: invert(1);
+}
+
+.header > h1 {
+    margin: -20px 0 0;
 }
 
 .content {
-    background-color: #1434A4;
+    background-color: var(--primary-color);
     height: 60vh;
     width: 100%;
-    margin: 100px 0;
+    margin: 24px 0;
+}
+
+.message-box {
+    width: 400px;
+    margin: 20px auto;
 }
 
 .message {
-    text-align: center;
+    font-family: 'Bebas Neue';
+    font-size: 1.8rem;
+    letter-spacing: 1.2px;
 }
 
-.game-container, .buttons {
+.game-container {
     display: flex;
     justify-content: center;
     gap: 30px;
@@ -27,8 +71,8 @@ body {
 }
 
 .grid {
-    width: 350px;
-    height: 350px;
+    width: 400px;
+    height: 400px;
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(10, 1fr);
@@ -43,34 +87,24 @@ body {
 }
 
 .grid-cell:hover {
-    background-color: #FEFEFE;
-    opacity: 0.8;
+    background-color: var(--font-color);
+    opacity: 0.6;
 }
 
-.hit::before {
-    /* add the explosive image */
-    content: 'X';
-    font-size: 1.5rem;
-    color: crimson;
+.hit {
+    background-image: url('../src/image/explosion.png');
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #696E6A;
 }
 
 .miss::before {
     content: '●';
-    font-size: 1.5rem;
-    color: #FEFEFE;
+    font-size: 1.8rem;
+    color: var(--font-color);
 }
 
 .ship {
-    background-color: rgb(151, 151, 151);
-}
-
-footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
+    background-color: #696E6A;
 }
