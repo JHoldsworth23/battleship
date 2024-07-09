@@ -41,6 +41,7 @@ class GameManager {
             this.UI.updateGrids(this.player.gameboard, this.enemy.gameboard);
 
             this.currentPlayer = this.player;
+            this.UI.displayMessage('Your turn.');
         }
     }
 
@@ -56,10 +57,13 @@ class GameManager {
                 if (this.checkWinner()) return;
 
                 this.currentPlayer = this.enemy;
+                this.UI.displayMessage("Enemy's turn");
 
                 this.AI.duringMove = true;
                 setTimeout(this.AI.makeMove.bind(this.AI), 200 + Math.floor(Math.random() * 600));
                 this.currentPlayer = this.player;
+            } else {
+                this.UI.displayMessage('Invalid move... Try again', true);
             }
         }
     }
@@ -67,11 +71,11 @@ class GameManager {
     checkWinner() {
         if (this.player.gameboard.isAllSunk()) {
             this.isGameOn = false;
-            // player lost
+            this.UI.displayMessage('You are defeated! Game over.');
             return true;
         } else if (this.enemy.gameboard.isAllSunk()) {
             this.isGameOn = false;
-            // player wins
+            this.UI.displayMessage('You are victorious! Game over.');
             return true;
         }
 
@@ -80,10 +84,10 @@ class GameManager {
 
     startGame() {
         if (this.isGameOn) {
-            // message - game is already started
+            this.UI.displayMessage('Game already started.', true);
             return;
         } else if (!this.player.isAllShipsPlaced()) {
-            // message - not all ships are placed 
+            this.UI.displayMessage('Not all ships are placed.', true);
             return;
         }
 
@@ -93,6 +97,7 @@ class GameManager {
         this.UI.disableShipDragging();
         this.UI.updateGrids(this.player.gameboard, this.enemy.gameboard);
         this.UI.disableButtons(true);
+        this.UI.displayMessage('Game started! Your turn.');
     }
 
     randomisePlayerShips() {
@@ -112,6 +117,7 @@ class GameManager {
         this.player.resetAllShips();
         this.enemy.resetAllShips();
         this.UI.resetAreas();
+        this.UI.displayMessage('Game was restarted. Please arrange your ships position...');
         this.player.placeRandomShips();
         this.UI.updateGrids(this.player.gameboard, this.enemy.gameboard);
         this.UI.draggingShips();
