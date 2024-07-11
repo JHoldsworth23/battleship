@@ -63,7 +63,7 @@ class GameManager {
                 this.AI.duringMove = true;
                 setTimeout(this.AI.makeMove.bind(this.AI), 200 + Math.floor(Math.random() * 600));
                 this.currentPlayer = this.player;
-                setTimeout(() => this.UI.displayMessage('Your turn'), 1200);
+                if (this.isGameOn) setTimeout(() => this.UI.displayMessage('Your turn'), 1200);
             } else {
                 this.UI.displayMessage('Invalid move... Try again', true);
             }
