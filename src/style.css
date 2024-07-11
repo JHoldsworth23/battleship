@@ -53,21 +53,26 @@ body {
 }
 
 .message-box {
-    width: 400px;
-    margin: 20px auto;
+    width: 500px;
+    margin: 20px auto 0;
 }
 
 .message {
     font-family: 'Bebas Neue';
     font-size: 1.8rem;
-    letter-spacing: 1.2px;
+    letter-spacing: 1.5px;
+    margin: 0;
+}
+
+.error {
+    color: rgb(221, 75, 104);
 }
 
 .game-container {
     display: flex;
     justify-content: center;
     gap: 30px;
-    margin: 20px;
+    margin: 15px;
 }
 
 .grid {
@@ -77,6 +82,7 @@ body {
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(10, 1fr);
     border: 3px solid #000000;
+    margin-top: 0;
 }
 
 .grid-cell {
@@ -96,7 +102,7 @@ body {
     background-size: 30px 30px;
     background-repeat: no-repeat;
     background-position: center;
-    background-color: #696E6A;
+    background-color: #5c5c5c;
 }
 
 .miss::before {
