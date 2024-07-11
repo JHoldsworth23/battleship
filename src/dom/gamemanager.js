@@ -37,11 +37,12 @@ class GameManager {
 
             if (this.checkWinner()) return;
 
-            this.player.gameboard.attackCoordinate(x, y);
-            this.UI.updateGrids(this.player.gameboard, this.enemy.gameboard);
+            setTimeout(() => {
+                this.player.gameboard.attackCoordinate(x, y);
+                this.UI.updateGrids(this.player.gameboard, this.enemy.gameboard);
 
-            this.currentPlayer = this.player;
-            this.UI.displayMessage('Your turn');
+                this.currentPlayer = this.player;
+            }, 3000);
         }
     }
 
@@ -62,6 +63,7 @@ class GameManager {
                 this.AI.duringMove = true;
                 setTimeout(this.AI.makeMove.bind(this.AI), 200 + Math.floor(Math.random() * 600));
                 this.currentPlayer = this.player;
+                setTimeout(() => this.UI.displayMessage('Your turn'), 1200);
             } else {
                 this.UI.displayMessage('Invalid move... Try again', true);
             }
