@@ -15,7 +15,7 @@
 }
 
 body {
-    max-height: 100vh;
+    max-height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -49,12 +49,12 @@ body {
     background-color: var(--primary-color);
     height: 60vh;
     width: 100%;
-    margin: 24px 0;
+    padding: 24px 0;
 }
 
 .message-box {
     width: 500px;
-    margin: 20px auto 0;
+    margin: 0 auto;
 }
 
 .message {
@@ -71,7 +71,7 @@ body {
 .game-container {
     display: flex;
     justify-content: center;
-    gap: 30px;
+    gap: 50px;
     margin: 15px;
 }
 
@@ -113,4 +113,39 @@ body {
 
 .ship {
     background-color: #696E6A;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 25px 0 0;
+}
+
+#random-btn, #start-btn, #reset-btn {
+    font-family: 'Bebas Neue';
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    color: var(--primary-color);
+    background-color: var(--font-color);
+    padding: 4px 18px;
+    border: 2px solid var(--primary-color);
+    border-radius: 16px;
+    cursor: pointer;
+}
+
+#random-btn:hover, #start-btn:hover, #reset-btn:hover {
+    color: var(--font-color);
+    background-color: var(--secondary-color);
+    border: 2px solid var(--font-color)
+}
+
+#random-btn:disabled, #start-btn:disabled {
+    background-color: gray;
+}
+
+#random-btn:disabled:hover, #start-btn:disabled:hover {
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
 }
