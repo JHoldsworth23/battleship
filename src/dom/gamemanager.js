@@ -27,6 +27,7 @@ class GameManager {
         this.UI.initialiseButtons(this.randomisePlayerShips.bind(this), this.startGame.bind(this), this.resetGame.bind(this));
         this.UI.updateGrids(this.player.gameboard, this.enemy.gameboard);
         this.UI.draggingShips();
+        this.UI.changeShipAxis();
     }
 
     playerGridEventHandler(e) {
@@ -97,6 +98,7 @@ class GameManager {
         this.currentPlayer = this.player;
         this.enemy.placeRandomShips();
         this.UI.disableShipDragging();
+        this.UI.disableChangeShipAxis();
         this.UI.updateGrids(this.player.gameboard, this.enemy.gameboard);
         this.UI.disableButtons(true);
         this.UI.displayMessage('Game started!<br>Your turn');
@@ -123,6 +125,7 @@ class GameManager {
         this.player.placeRandomShips();
         this.UI.updateGrids(this.player.gameboard, this.enemy.gameboard);
         this.UI.draggingShips();
+        this.UI.changeShipAxis();
     }
 
 }
