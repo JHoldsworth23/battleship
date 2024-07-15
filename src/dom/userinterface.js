@@ -85,6 +85,60 @@ class UserInterface {
         resetBtn.addEventListener('click', callbackFn[2]);
     }
 
+    disableChangeShipAxis() {
+        const ships = this.playerGrid.querySelectorAll('.ship');
+        ships.forEach((ship) => {
+            ship.removeEventListener('click', this.handleShipAxis.bind(this));
+            ship.addEventListener('click', this.eventDisabler);
+        });
+    }
+
+    changeShipAxis() {
+        const ships = this.playerGrid.querySelectorAll('.ship');
+        ships.forEach((ship) => this.changeAxisEvent(ship));
+    }
+
+    enableChangeShipAxis(shipName) {
+        const ships = this.playerGrid.querySelectorAll(`.ship[data-name="${shipName}"]`);
+        ships.forEach((ship) => this.changeAxisEvent(ship));
+    }
+
+    changeAxisEvent(ship) {
+        ship.removeEventListener('click', this.eventDisabler);
+        ship.removeEventListener('click', this.handleShipAxis.bind(this));
+
+        ship.addEventListener('click', this.handleShipAxis.bind(this));
+    }
+
+    handleShipAxis(e) {
+        e.preventDefault();
+        this.temporaryBoard = new Gameboard(this.player.gameboard.deepCopy(this.player.gameboard.board));
+
+        const shipId = e.target.dataset.index;
+        const ship = this.playerGrid.querySelector(`.ship[data-index="${shipId}"]`);
+
+        const x = Math.floor(shipId / 10);
+        const y = shipId % 10;
+
+        const newAxis = ship.dataset.axis == 'xAxis' ? 'yAxis' : 'xAxis';
+        const shipToBePlaced = this.temporaryBoard.getLocationByShipName(ship.dataset.name);
+
+        this.temporaryBoard.removeShip(shipToBePlaced);
+
+        if (this.temporaryBoard.canShipBePlaced(shipToBePlaced, x, y, newAxis)) {
+            try {
+                this.player.removeShip(ship.dataset.name);
+
+                if (this.player.placeShip(ship.dataset.name, x, y, newAxis)) {
+                    this.updateGrids(this.player.gameboard);
+                    this.enableChangeShipAxis();
+                }
+            } catch (err) {
+                console.log(err.message);
+            }
+        }
+    }
+
     disableShipDragging() {
         this.playerGridCells.forEach((cell) => {
             cell.setAttribute("draggable", false);
@@ -175,6 +229,7 @@ class UserInterface {
                 if (this.player.placeShip(ship.dataset.name, x, y, shipAxis)) {
                     this.updateGrids(this.player.gameboard);
                     this.enableShipDragging(ship.dataset.name);
+                    this.changeShipAxis();
                 }
             } catch (err) {
                 console.log(err.message);
