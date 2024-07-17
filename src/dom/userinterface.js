@@ -53,6 +53,13 @@ class UserInterface {
                     playerCell.dataset.name = playerBattleship.name;
                 } 
                 
+                if (!playerCell.classList.contains('ship')) {
+                    delete playerCell.dataset.length;
+                    delete playerCell.dataset.axis;
+                    delete playerCell.dataset.name;
+                    playerCell.setAttribute('draggable', false);
+                }
+
                 if (enemyGameboard !== null) {
                     const enemyCell = this.enemyGridCells[x * 10 + y];
                     enemyCell.classList.remove('ship', 'hit', 'miss');
