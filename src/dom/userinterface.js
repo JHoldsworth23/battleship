@@ -97,7 +97,7 @@ class UserInterface {
         e.preventDefault();
     }
 
-    disableShipDragging() {
+    disableChangingShipLocation() {
         this.playerGridCells.forEach((cell) => {
             cell.setAttribute("draggable", false);
             cell.removeEventListener("dragstart", this.handleDragStart.bind(this));
@@ -118,9 +118,9 @@ class UserInterface {
         });
     }
 
-    draggingShips() {
+    enableMoveShips() {
         const ships = this.playerGrid.querySelectorAll('.ship');
-        ships.forEach((ship) => this.makeDraggable(ship));
+        ships.forEach((ship) => this.changeShipLocationEvent(ship));
 
         this.playerGridCells.forEach((cell) => {
             cell.removeEventListener('dragstart', this.eventDisabler);
@@ -135,7 +135,7 @@ class UserInterface {
         });
     }
 
-    makeDraggable(ship) {
+    changeShipLocationEvent(ship) {
         ship.setAttribute('draggable', true);
 
         ship.removeEventListener('dragstart', this.eventDisabler);
@@ -189,7 +189,7 @@ class UserInterface {
 
                     if (this.player.placeShip(ship.dataset.name, x, y, shipAxis)) {
                         this.updateGrids(this.player.gameboard);
-                        this.draggingShips();
+                        this.enableMoveShips();
                     }
                 } catch (err) {
                     console.log(err.message);
@@ -220,7 +220,7 @@ class UserInterface {
 
                     if (this.player.placeShip(ship.dataset.name, x, y, newAxis)) {
                         this.updateGrids(this.player.gameboard);
-                        this.draggingShips();
+                        this.enableMoveShips();
                     }
                 } catch (err) {
                     console.log(err.message);
