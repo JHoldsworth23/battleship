@@ -10,6 +10,7 @@ class GameManager {
         this.AI = new AI(this.enemy, this.UI, this.player);
         this.currentPlayer = null;
         this.isGameOn = false;
+        this.instruction = document.querySelector('.instruction');
     }
     
     initialiseGame() {
@@ -101,6 +102,7 @@ class GameManager {
         this.UI.updateGrids(this.player.gameboard, this.enemy.gameboard);
         this.UI.disableButtons(true);
         this.UI.displayMessage('Game started!<br>Your turn');
+        this.instruction.style.display = 'none';
     }
 
     randomisePlayerShips() {
@@ -125,6 +127,7 @@ class GameManager {
         this.player.placeRandomShips();
         this.UI.updateGrids(this.player.gameboard, this.enemy.gameboard);
         this.UI.enableMoveShips();
+        this.instruction.style.display = 'block';
     }
 }
 
