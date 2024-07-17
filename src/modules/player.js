@@ -38,7 +38,7 @@ class Player {
             this.gameboard.placeShip(this.ships[shipName].ship, x, y, axis);
             this.ships[shipName].placed = true;
             return true;
-        } catch (err) {
+        } catch {
             return false;
         }
     }
@@ -53,7 +53,7 @@ class Player {
 
                 try {
                     placed = this.placeShip(ship, x, y, axis);
-                } catch (e) {
+                } catch {
                     placed = false;
                 }
             }
