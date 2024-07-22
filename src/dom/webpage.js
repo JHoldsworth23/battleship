@@ -1,5 +1,5 @@
 const createFooterSection = () => {
-    const footer = document.querySelector('footer');
+    const footer = document.querySelector('.footer');
     const date = new Date();
 
     footer.innerHTML = `
