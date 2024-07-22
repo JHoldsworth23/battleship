@@ -10,6 +10,7 @@ class UserInterface {
         this.enemyGridCells = [];
         this.temporaryBoard = null;
         this.hasStartBtnClicked = false;
+        this.screenSize = window.screen.width;
     }
 
     createGrid(grid, cells) {
@@ -79,6 +80,20 @@ class UserInterface {
                     }
                 }
             }
+        }
+
+        if (this.screenSize <= 960) {
+            const gameContainer = document.querySelector('.game-container');
+            
+            const playerGrid = document.getElementById('player-grid');
+            const playerTitle = document.createElement('p');
+            playerTitle.textContent = 'Your Grid:';
+            gameContainer.insertBefore(playerTitle, playerGrid);
+
+            const enemyGrid = document.getElementById('enemy-grid');
+            const enemyTitle = document.createElement('p');
+            enemyTitle.textContent = "Opponent's Grid:";
+            gameContainer.insertBefore(enemyTitle, enemyGrid);
         }
     }
 
