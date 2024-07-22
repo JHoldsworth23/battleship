@@ -50,12 +50,12 @@ body {
 .content {
     background-color: var(--primary-color);
     height: 60vh;
-    width: 100%;
+    min-width: 100%;
     padding: 24px 0;
 }
 
 .message-box {
-    width: 500px;
+    width: 100%;
     margin: 0 auto;
 }
 
@@ -165,19 +165,17 @@ body {
     cursor: default;
 }
 
-footer {
+.footer {
     position: fixed;
     bottom: 0;
     left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
     gap: 16px;
-    max-width: 100%;
+    width: 100%;
     font-size: 1.2rem;
 }
 
-footer > p {
+.footer > p {
     letter-spacing: 1.2px;
     margin: 12px 0;
 }
@@ -196,7 +194,7 @@ i[class$="hub"]:hover {
         height: fit-content;
         margin: 16px auto;
     }
-    
+
     .content {
         height: auto;
     }
@@ -233,8 +231,64 @@ i[class$="hub"]:hover {
 }
 
 @media screen and (max-height: 940px) {
-    footer {
+    .footer {
         position: static;
         margin-top: 12px;
-    };
+    }
+}
+
+@media screen and (max-width: 960px) {
+    body {
+        width: fit-content;
+        margin: 20px auto 10px;
+    }
+
+    .content {
+        width: fit-content;
+    }
+    
+    .message-box {
+        margin: 0;
+    }
+
+    .message {
+        font-size: 1.25rem;
+        margin-bottom: 16px;
+    }
+
+    .game-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 0;
+        margin: 0;
+    }
+
+    .game-container > p:first-child {
+        margin-top: 0;
+    }
+
+    .game-container > p {
+        font-size: 1.2rem;
+        margin-bottom: 4px;
+        width: 275px;
+        text-align: start;
+    }
+
+    #player-grid, #enemy-grid {
+        height: 280px;
+        width: 280px;
+    }
+
+    .instruction {
+        font-size: 1.1rem;
+        line-height: 24px;
+        height: 60px;
+    }
+
+    #random-btn, #start-btn, #reset-btn {
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+    }
 }
