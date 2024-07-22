@@ -169,6 +169,9 @@ body {
     position: fixed;
     bottom: 0;
     left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     gap: 16px;
     width: 100%;
