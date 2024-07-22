@@ -17,7 +17,7 @@
 
 body {
     font-family: var(--main-font);
-    max-height: 90vh;
+    min-height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -50,12 +50,12 @@ body {
 .content {
     background-color: var(--primary-color);
     height: 60vh;
-    width: 100%;
+    min-width: 100%;
     padding: 24px 0;
 }
 
 .message-box {
-    width: 500px;
+    width: 100%;
     margin: 0 auto;
 }
 
@@ -78,8 +78,8 @@ body {
 
 .instruction {
     position: absolute;
-    top: 45vh;
-    left: 5vw;
+    top: 45%;
+    left: 5%;
     font-size: 1.5rem;
     text-align: left;
     letter-spacing: 1.6px;
@@ -94,8 +94,7 @@ body {
     width: 400px;
     height: 400px;
     display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    grid-template-rows: repeat(10, 1fr);
+    grid-template: repeat(10, 1fr) / repeat(10, 1fr);
     border: 3px solid #000000;
     margin-top: 0;
 }
@@ -166,19 +165,17 @@ body {
     cursor: default;
 }
 
-footer {
+.footer {
     position: fixed;
     bottom: 0;
     left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
     gap: 16px;
-    width: 100vw;
+    width: 100%;
     font-size: 1.2rem;
 }
 
-footer > p {
+.footer > p {
     letter-spacing: 1.2px;
     margin: 12px 0;
 }
@@ -190,4 +187,108 @@ i[class$="hub"] {
 
 i[class$="hub"]:hover {
     color: #CECECE;
+}
+
+@media screen and (max-width: 1755px) {
+    body {
+        height: fit-content;
+        margin: 16px auto;
+    }
+
+    .content {
+        height: auto;
+    }
+    
+    .game-container {
+        display: grid;
+        gap: 16px;
+        grid-template: 400px / repeat(2, 1fr);
+        grid-auto-rows: 120px;
+        margin: 25px 80px;
+    }
+
+    .instruction {
+        position: relative;
+        top: auto;
+        left: auto;
+        height: 100px;
+        justify-self: center;
+        grid-column: 1 / 3;
+        grid-row: 2;
+    }
+
+    #player-grid {
+        grid-column: 1 / 2;
+    }
+
+    #enemy-grid {
+        grid-column: 2 / 3;
+    }
+
+    #player-grid, #enemy-grid {
+        justify-self: center;
+    }
+}
+
+@media screen and (max-height: 940px) {
+    .footer {
+        position: static;
+        margin-top: 12px;
+    }
+}
+
+@media screen and (max-width: 960px) {
+    body {
+        width: fit-content;
+        margin: 20px auto 10px;
+    }
+
+    .content {
+        width: fit-content;
+    }
+    
+    .message-box {
+        margin: 0;
+    }
+
+    .message {
+        font-size: 1.25rem;
+        margin-bottom: 16px;
+    }
+
+    .game-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 0;
+        margin: 0;
+    }
+
+    .game-container > p:first-child {
+        margin-top: 0;
+    }
+
+    .game-container > p {
+        font-size: 1.2rem;
+        margin-bottom: 4px;
+        width: 275px;
+        text-align: start;
+    }
+
+    #player-grid, #enemy-grid {
+        height: 280px;
+        width: 280px;
+    }
+
+    .instruction {
+        font-size: 1.1rem;
+        line-height: 24px;
+        height: 60px;
+    }
+
+    #random-btn, #start-btn, #reset-btn {
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+    }
 }
