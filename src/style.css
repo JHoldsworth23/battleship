@@ -290,6 +290,14 @@ i[class$="hub"]:hover {
         height: 60px;
     }
 
+    .hit {
+        background-size: 20px 20px;
+    }
+    
+    .miss::before {
+        font-size: 1.2rem;
+    }
+
     #random-btn, #start-btn, #reset-btn {
         font-size: 1.2rem;
         letter-spacing: 1px;
